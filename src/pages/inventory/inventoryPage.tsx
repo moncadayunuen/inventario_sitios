@@ -32,10 +32,10 @@ import type {
 } from '../../types/site';
 import './inventoryPage.scss';
 import DeleteSiteModal from "../../components/deleteSiteModal/deleteSiteModal.tsx";
-import PageHeader from "../../components/titlePage/pageHeader.tsx";
+import PageHeader from "../../components/pageHeader/pageHeader.tsx";
 import Breadcrumb from "../../components/breadcrumb/breadcrumb.tsx";
 import InventorySummary from "../../components/inventorySummary/inventorySummary.tsx";
-import { useOutletContext } from 'react-router-dom';
+import {useNavigate, useOutletContext} from 'react-router-dom';
 import type { UserRole } from '../../types/userRole';
 
 const DEFAULT_PAGE_SIZE = 8;
@@ -64,11 +64,16 @@ export default function InventoryPage() {
     const [page, setPage] = useState(1);
     const [pageSize, setPageSize] = useState(DEFAULT_PAGE_SIZE);
     const [search, setSearch] = useState('');
-    const [, setFiltersOpen] = useState(false);
     const [filters, setFilters] = useState<InventoryFilterValues>(EMPTY_INVENTORY_FILTERS,);
     const { userRole } = useOutletContext<{ userRole: UserRole; }>();
-    const canManageSites = userRole === 'media_owner';
+    //const canManageSites = userRole === 'media_owner';
+    const navigate = useNavigate();
+    const [filtersOpen, setFiltersOpen] =
+        useState(true);
 
+    const toggleFilters = () => {
+        setFiltersOpen((current) => !current);
+    };
     const handleDeleteSite = async (site: Site) => {
         try {
             setDeletingSite(true);
@@ -85,183 +90,162 @@ export default function InventoryPage() {
         brand: 'Consulta los sitios publicitarios contratados a través de tu agencia.',
     };
 
-    const statusOptions =
-        useMemo(() => {
-            return [
-                ...new Set(
-                    sites.map(
-                        (site) =>
-                            site.status,
-                    ),
-                ),
-            ].map((status) => ({
-                label:
-                    STATUS_LABELS[
-                        status
-                        ],
-                value: status,
-            }));
-        }, [sites]);
+    const statusOptions = useMemo(() => {
+        return [...new Set(sites.map((site) => site.status,),),].map((status) => ({
+            label: STATUS_LABELS[status],
+            value: status,
+        }));
+    }, [sites]);
 
     const typeOptions = useMemo(() => {
-            return [
-                ...new Set(
-                    sites.map(
-                        (site) =>
-                            site
-                                .structure
-                                .type,
-                    ),
+        return [
+            ...new Set(
+                sites.map(
+                    (site) =>
+                        site
+                            .structure
+                            .type,
                 ),
-            ].map((type) => ({
-                label: TYPE_LABELS[type],
-                value: type,
-            }));
-        }, [sites]);
+            ),
+        ].map((type) => ({
+            label: TYPE_LABELS[type],
+            value: type,
+        }));
+    }, [sites]);
 
-    const ownerOptions =
-        useMemo(() => {
-            const owners = new Map<string, string>();
+    const ownerOptions = useMemo(() => {
+        const owners = new Map<string, string>();
 
-            sites.forEach(
-                (site) => {
-                    owners.set(
+        sites.forEach(
+            (site) => {
+                owners.set(
+                    site
+                        .identification
+                        .owner
+                        .id,
+                    site
+                        .identification
+                        .owner
+                        .name,
+                );
+            },
+        );
+
+        return Array.from(
+            owners,
+        ).map(
+            ([value, label,]) => ({label, value,}),
+        );
+    }, [sites]);
+
+    const stateOptions = useMemo(() => {
+        return [
+            ...new Set(
+                sites.map(
+                    (site) =>
+                        site
+                            .location
+                            .state,
+                ),
+            ),]
+            .sort()
+            .map(
+                (state) => ({
+                    label: state,
+                    value: state,
+                }),
+            );
+    }, [sites]);
+
+    const statusSummary = useMemo(() => {
+        return sites.reduce(
+            (summary, site) => {
+                summary.total += 1;
+                summary[site.status] += 1;
+                return summary;
+            },
+            {
+                total: 0,
+                available: 0,
+                occupied: 0,
+                maintenance: 0,
+                inactive: 0,
+            },
+        );
+    }, [sites]);
+
+    const activeStatusTab = useMemo<StatusTab>(
+        () => {
+            if (filters.statuses.length !== 1) {
+                return 'all';
+            }
+            return filters
+                .statuses[0];
+        },
+        [filters.statuses],
+    );
+
+    const filteredSites = useMemo(() => {
+        const query = search.trim().toLowerCase();
+
+        return sites.filter(
+            (site) => {
+                const searchableContent =
+                    [
+                        site.id,
+
                         site
                             .identification
-                            .owner
-                            .id,
+                            .name,
+
                         site
                             .identification
                             .owner
                             .name,
-                    );
-                },
-            );
 
-            return Array.from(
-                owners,
-            ).map(
-                ([value, label,]) => ({label, value,}),
-            );
-        }, [sites]);
+                        site
+                            .location
+                            .municipality,
 
-    const stateOptions = useMemo(() => {
-            return [
-                ...new Set(
-                    sites.map(
-                        (site) =>
-                            site
-                                .location
-                                .state,
-                    ),
-                ),
-            ]
-                .sort()
-                .map(
-                    (state) => ({
-                        label: state,
-                        value: state,
-                    }),
+                        site
+                            .location
+                            .state,
+
+                        site
+                            .location
+                            .metroArea,
+
+                        site
+                            .location
+                            .address,
+                    ]
+                        .join(' ')
+                        .toLowerCase();
+
+                const matchesSearch = !query || searchableContent.includes(query,);
+                const matchesStatus = filters.statuses.length === 0 || filters.statuses.includes(site.status,);
+                const matchesType =
+                    filters.types.length === 0 ||
+                    filters.types.includes(site.structure.type,);
+
+                const matchesOwner =
+                    filters.owners.length === 0 ||
+                    filters.owners.includes(site.identification.owner.id,);
+
+                const matchesState =
+                    filters.states.length === 0 ||
+                    filters.states.includes(site.location.state,);
+
+                return (
+                    matchesSearch &&
+                    matchesStatus &&
+                    matchesType &&
+                    matchesOwner &&
+                    matchesState
                 );
-        }, [sites]);
-    const statusSummary = useMemo(() => {
-            return sites.reduce(
-                (
-                    summary,
-                    site,
-                ) => {
-                    summary.total += 1;
-
-                    summary[
-                        site.status
-                        ] += 1;
-
-                    return summary;
-                },
-                {
-                    total: 0,
-                    available: 0,
-                    occupied: 0,
-                    maintenance: 0,
-                    inactive: 0,
-                },
-            );
-        }, [sites]);
-    const activeStatusTab = useMemo<StatusTab>(
-            () => {
-                if (filters.statuses.length !== 1) {
-                    return 'all';
-                }
-                return filters
-                    .statuses[0];
             },
-            [filters.statuses],
         );
-
-    const filteredSites = useMemo(() => {
-            const query =
-                search
-                    .trim()
-                    .toLowerCase();
-
-            return sites.filter(
-                (site) => {
-                    const searchableContent =
-                        [
-                            site.id,
-
-                            site
-                                .identification
-                                .name,
-
-                            site
-                                .identification
-                                .owner
-                                .name,
-
-                            site
-                                .location
-                                .municipality,
-
-                            site
-                                .location
-                                .state,
-
-                            site
-                                .location
-                                .metroArea,
-
-                            site
-                                .location
-                                .address,
-                        ]
-                            .join(' ')
-                            .toLowerCase();
-
-                    const matchesSearch = !query || searchableContent.includes(query,);
-                    const matchesStatus = filters.statuses.length === 0 || filters.statuses.includes(site.status,);
-                    const matchesType =
-                        filters.types.length === 0 ||
-                        filters.types.includes(site.structure.type,);
-
-                    const matchesOwner =
-                        filters.owners.length === 0 ||
-                        filters.owners.includes(site.identification.owner.id,);
-
-                    const matchesState =
-                        filters.states.length === 0 ||
-                        filters.states.includes(site.location.state,);
-
-                    return (
-                        matchesSearch &&
-                        matchesStatus &&
-                        matchesType &&
-                        matchesOwner &&
-                        matchesState
-                    );
-                },
-            );
-        }, [sites, search, filters,]);
+    }, [sites, search, filters,]);
 
     const handlePageSizeChange = useCallback((nextPageSize: number,)=> {
         const safePageSize = Math.max(5, Math.min(nextPageSize, 10,),);
@@ -280,10 +264,9 @@ export default function InventoryPage() {
         setPage((currentPage) => Math.min(currentPage, totalPages,),);
     }, [filteredSites.length, pageSize,]);
 
-    const visibleSites =
-        useMemo(() => {
-            const start = (page - 1) * pageSize;
-            const end = start + pageSize;
+    const visibleSites = useMemo(() => {
+        const start = (page - 1) * pageSize;
+        const end = start + pageSize;
 
         return filteredSites.slice(
             start,
@@ -294,8 +277,7 @@ export default function InventoryPage() {
     const startRecord = filteredSites.length === 0 ? 0 : (page - 1) * pageSize + 1;
     const endRecord = Math.min(page * pageSize, filteredSites.length,);
 
-    const activeFilterCount =
-    useMemo(() => {
+    const activeFilterCount = useMemo(() => {
         return (
             filters.statuses.length +
             filters.types.length +
@@ -330,7 +312,14 @@ export default function InventoryPage() {
 
     return (
         <section className="inventory">
-            <div className="inventory__layout">
+            <div
+                className={[
+                    'inventory__layout',
+                    filtersOpen
+                        ? 'inventory__layout--filters-open'
+                        : 'inventory__layout--filters-hidden',
+                ].join(' ')}
+            >
                 <div className="inventory__main">
                     <Breadcrumb
                         items={[
@@ -348,7 +337,7 @@ export default function InventoryPage() {
                                 startIcon={<MdAdd size={18} aria-hidden="true"/>
                                 }
                                 onClick={() => {
-                                    //
+                                    navigate('/create-site')
                                 }}
                             >
                                 Nuevo sitio
@@ -395,9 +384,7 @@ export default function InventoryPage() {
                                             aria-hidden="true"
                                         />
                                     }
-                                    onClick={() => {
-                                        setFiltersOpen(true);
-                                    }}
+                                    onClick={toggleFilters}
                                 >
                                     <span>Filtros</span>
                                     {activeFilterCount > 0 && (
@@ -492,7 +479,9 @@ export default function InventoryPage() {
                                 userRole={userRole}
                                 sites={visibleSites}
                                 onDelete={(site) => {setSiteToDelete(site);}}
-                                onEdit={(site) => {console.log('Editar sitio:', site.id);}}
+                                onEdit={(site) => {
+                                    navigate(`/site/${site.id}/edit`)
+                                }}
                             />
                         </div>
 
@@ -526,14 +515,16 @@ export default function InventoryPage() {
                 </div>
 
                 {/* Desktop filters */}
-
+                {/* Desktop filters */}
                 <aside
                     className="inventory__filters-panel"
                     aria-label="Filtros de inventario"
+                    aria-hidden={!filtersOpen}
                 >
                     <InventoryFilters
                         userRole={userRole}
                         filters={filters}
+                        toggleFilters={toggleFilters}
                         statusOptions={statusOptions}
                         typeOptions={typeOptions}
                         ownerOptions={ownerOptions}
@@ -548,9 +539,7 @@ export default function InventoryPage() {
                 site={siteToDelete}
                 loading={deletingSite}
                 onClose={() => {
-                    if (!deletingSite) {
-                        setSiteToDelete(null);
-                    }
+                    if (!deletingSite) setSiteToDelete(null);
                 }}
                 onConfirm={handleDeleteSite}
             />

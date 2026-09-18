@@ -3,60 +3,53 @@
 .inventory {
   width: 100%;
   height: 100%;
-
   min-width: 0;
   min-height: 0;
-
   overflow: hidden;
-
   background: $color-background;
-
-  // ---------------------------------------------
-  // Layout
-  // ---------------------------------------------
-
   &__layout {
     display: grid;
-
-    /*
-     * La columna central puede encogerse.
-     * El panel de filtros conserva su ancho.
-     */
-    grid-template-columns:
-      minmax(0, 1fr)
-      280px;
-
+    grid-template-columns:minmax(0, 1fr)280px;
     width: 100%;
     max-width: 100%;
     height: 100%;
-
     min-width: 0;
     min-height: 0;
-
     overflow: hidden;
+    transition: grid-template-columns 0.3s ease;
   }
+  &__layout--filters-hidden {
+    grid-template-columns: minmax(0, 1fr) 0;
+  }
+  &__filters-panel {
+    width: 280px;
+    min-width: 280px;
+    min-height: 0;
+    box-sizing: border-box;
+    background: $color-surface;
+    border-left: 1px solid $color-border;
+    overflow-x: hidden;
+    overflow-y: auto;
+    opacity: 1;
+    transform: translateX(0);
+    transition: transform 0.3s ease, opacity 0.2s ease;
+  }
+  &__layout--filters-hidden {
+    .inventory__filters-panel {
+      opacity: 0;
+      transform: translateX(100%);
 
-  // ---------------------------------------------
-  // Main
-  // ---------------------------------------------
-
+      pointer-events: none;
+    }
+  }
   &__main {
     display: flex;
     flex-direction: column;
-
-    /*
-     * CRÍTICO:
-     * evita que cualquier hijo ensanche
-     * la columna del grid.
-     */
     width: auto;
     max-width: 100%;
-
     min-width: 0;
     min-height: 0;
-
     padding: $space-6;
-
     overflow-x: hidden;
     overflow-y: auto;
   }
@@ -116,16 +109,13 @@
 
   &__header-content {
     flex: 1 1 auto;
-
     min-width: 0;
     max-width: 100%;
   }
 
   &__title {
     margin: 0;
-
     color: $color-text-primary;
-
     font-size: $font-size-2xl;
     font-weight: $font-weight-semibold;
     line-height: $line-height-tight;
@@ -133,11 +123,8 @@
 
   &__description {
     max-width: 640px;
-
     margin: $space-2 0 0;
-
     color: $color-text-secondary;
-
     font-size: $font-size-sm;
     line-height: $line-height-base;
   }
@@ -146,106 +133,61 @@
     min-height: 40px;
 
     padding-inline: $space-5;
-
     flex: 0 0 auto;
-
     border-radius: $radius-md;
-
     font-weight: $font-weight-medium;
   }
-
-  // ---------------------------------------------
-  // Content
-  // ---------------------------------------------
-
   &__content {
     display: flex;
     flex-direction: column;
-
-    /*
-     * CRÍTICO:
-     * no usar width intrínseco.
-     */
     width: auto;
     max-width: 100%;
-
     min-width: 0;
-
     flex: 0 0 auto;
-
-    padding:
-            $space-4
-            $space-4
-            0;
-
+    padding: $space-4 $space-4 0;
     overflow: hidden;
-
     background: $color-surface;
-
     border: 1px solid $color-border;
     border-radius: $radius-lg;
-
     box-shadow: $shadow-sm;
   }
-
   // ---------------------------------------------
   // Status summary
   // ---------------------------------------------
-
   &__status-summary {
     display: grid;
-
-    grid-template-columns:
-      repeat(5, minmax(0, 1fr));
-
+    grid-template-columns:repeat(5, minmax(0, 1fr));
     width: 100%;
     max-width: 100%;
-
     min-width: 0;
-
     margin-bottom: $space-4;
-
     overflow: hidden;
-
     background: $color-surface-secondary;
-
     border: 1px solid $color-border;
     border-radius: $radius-md;
   }
-
   &__status-summary-item {
     appearance: none;
-
     display: flex;
     align-items: center;
     gap: $space-2;
-
     width: 100%;
-
     min-width: 0;
     min-height: 48px;
-
     padding-inline: $space-3;
-
     overflow: hidden;
-
     background: transparent;
 
     border: 0;
     border-right: 1px solid $color-border;
-
     color: inherit;
-
     cursor: pointer;
-
     &:last-child {
       border-right: 0;
     }
-
     &:hover {
       background: $color-surface-hover;
     }
-
     &--active {
       background: $color-surface;
     }
@@ -253,80 +195,53 @@
 
   &__status-summary-label {
     min-width: 0;
-
     overflow: hidden;
-
     color: $color-text-secondary;
-
     font-size: $font-size-xs;
-
     white-space: nowrap;
     text-overflow: ellipsis;
   }
-
   &__status-summary-value {
     margin-left: auto;
-
     flex: 0 0 auto;
-
     color: $color-text-primary;
-
     font-size: $font-size-sm;
     font-weight: $font-weight-semibold;
-
     font-variant-numeric: tabular-nums;
   }
-
   &__status-summary-dot {
     width: 7px;
     height: 7px;
-
     flex: 0 0 7px;
-
     border-radius: 50%;
-
     &--available {
       background: $color-success;
     }
-
     &--occupied {
       background: $color-danger;
     }
-
     &--maintenance {
       background: $color-warning;
     }
-
     &--inactive {
       background: $color-neutral;
     }
   }
-
-  // ---------------------------------------------
-  // Toolbar
-  // ---------------------------------------------
-
   &__toolbar {
     display: flex;
     align-items: center;
     gap: $space-3;
-
     width: 100%;
     max-width: 100%;
     min-width: 0;
-
     margin-bottom: $space-5;
-
     overflow: visible;
   }
-
   &__toolbar-end {
     display: flex;
     align-items: center;
     gap: $space-3;
-
     margin-left: auto;
-
     flex: 0 0 auto;
   }
 
@@ -335,12 +250,9 @@
     align-items: center;
     justify-content: center;
     gap: $space-2;
-
     height: 40px;
     min-height: 40px;
-
     padding: 0 $space-3 !important;
-
     background: $brand-primary-soft !important;
 
     border: 1px solid $brand-primary !important;
@@ -358,7 +270,6 @@
       border-color: $brand-primary !important;
       color: $brand-primary !important;
     }
-
     svg {
       width: 18px;
       height: 18px;
@@ -372,13 +283,9 @@
 
     min-width: 22px;
     height: 22px;
-
     padding-inline: 6px;
-
     background: $brand-primary;
-
     border-radius: $radius-pill;
-
     color: $color-text-inverse;
 
     font-size: 11px;
@@ -395,11 +302,8 @@
     width: 40px !important;
     min-width: 40px !important;
     height: 40px !important;
-
     padding: 0 !important;
-
     background: #eef3f9 !important;
-
     border: 0 !important;
     border-radius: $radius-md !important;
 
@@ -420,9 +324,7 @@
     width: 280px;
     min-width: 280px;
     max-width: 280px;
-
     flex: 0 0 280px;
-
     .rs-input-group {
       width: 100%;
       height: 40px;
@@ -434,12 +336,9 @@
       overflow: hidden;
 
       background: #eef2f7 !important;
-
       border: 1px solid transparent !important;
       border-radius: 8px !important;
-
       box-shadow: none !important;
-
       transition:
               background-color 150ms ease,
               border-color 150ms ease,
@@ -451,9 +350,7 @@
 
       &:focus-within {
         background: $color-surface !important;
-
         border-color: $brand-primary !important;
-
         box-shadow:
                 0 0 0 3px rgba(30, 64, 105, 0.12) !important;
       }
@@ -473,9 +370,7 @@
       background: transparent !important;
 
       border: 0 !important;
-
       color: #60758e;
-
       svg {
         width: 17px;
         height: 17px;
@@ -690,16 +585,7 @@
       color: $color-text-inverse;
     }
   }
-
-  // ---------------------------------------------
-  // Filters panel
-  // ---------------------------------------------
-
   &__filters-panel {
-    /*
-     * El panel ocupa EXCLUSIVAMENTE
-     * su columna del grid.
-     */
     width: 100%;
     max-width: 100%;
 
@@ -707,14 +593,10 @@
     min-height: 0;
 
     height: 100%;
-
     box-sizing: border-box;
-
     padding: $space-5;
-
     overflow-x: hidden;
     overflow-y: auto;
-
     background: $color-surface;
 
     border-left: 1px solid $color-border;
@@ -751,32 +633,24 @@
 
   @media (max-width: $tablet) {
     &__main {
-      padding:
-              $space-4
-              $space-3;
+      padding: $space-4 $space-3;
     }
 
     &__header {
       flex-direction: column;
       gap: $space-4;
-
       overflow: visible;
     }
 
     &__create-button {
       width: 100%;
     }
-
     &__content {
-      padding:
-              $space-3
-              $space-3
-              0;
+      padding: $space-3 $space-3 0;
     }
 
     &__status-summary {
-      grid-template-columns:
-        repeat(2, minmax(0, 1fr));
+      grid-template-columns:repeat(2, minmax(0, 1fr));
     }
 
     &__status-summary-item {
@@ -798,9 +672,7 @@
       .rs-input-group {
         height: 40px;
         min-height: 40px;
-
         overflow: hidden;
-
         background: #eef3f9;
 
         border: 1px solid transparent;

@@ -1,0 +1,168 @@
+@use '../../styles/partials/variables' as *;
+
+.commercial-step {
+  padding: $space-6;
+
+  &__header {
+    display: flex;
+    align-items: center;
+    gap: $space-3;
+
+    margin-bottom: $space-6;
+  }
+
+  &__header-icon {
+    display: grid;
+    place-items: center;
+
+    width: 34px;
+    height: 34px;
+    flex: 0 0 34px;
+
+    background: $brand-primary-soft;
+
+    border-radius: $radius-md;
+
+    color: $brand-primary;
+  }
+
+  &__title {
+    margin: 0;
+
+    color: $color-text-primary;
+
+    font-size: $font-size-lg;
+    font-weight: $font-weight-semibold;
+    line-height: $line-height-tight;
+  }
+
+  &__description {
+    margin: 3px 0 0;
+
+    color: $color-text-secondary;
+
+    font-size: $font-size-xs;
+  }
+
+  &__fields {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: $space-4;
+  }
+
+  &__field {
+    min-width: 0;
+
+    .rs-picker-toggle,
+    .rs-input-number {
+      min-height: 42px;
+
+      border-color: $color-border !important;
+      border-radius: $radius-md !important;
+
+      box-shadow: none !important;
+    }
+
+    .rs-input-number {
+      width: 100%;
+    }
+
+    .rs-picker-toggle:focus,
+    .rs-picker-toggle-active,
+    .rs-input-number:focus-within {
+      border-color: $brand-primary !important;
+
+      box-shadow:
+              0 0 0 3px rgba(30, 64, 105, 0.1) !important;
+    }
+  }
+
+  &__label {
+    display: block;
+
+    margin-bottom: $space-2;
+
+    color: $color-text-primary;
+
+    font-size: $font-size-xs;
+    font-weight: $font-weight-semibold;
+  }
+
+  &__help {
+    display: block;
+
+    margin-top: $space-2;
+
+    color: $color-text-muted;
+
+    font-size: 10px;
+    line-height: 1.35;
+  }
+
+  &__measurement {
+    position: relative;
+
+    .rs-input-number {
+      padding-right: 38px;
+    }
+
+    > span {
+      position: absolute;
+      top: 50%;
+      right: 38px;
+
+      z-index: 2;
+
+      transform: translateY(-50%);
+
+      color: $color-text-muted;
+
+      font-size: $font-size-xs;
+
+      pointer-events: none;
+    }
+  }
+
+  &__info {
+    margin-top: $space-5;
+    padding: $space-3 $space-4;
+
+    background: $brand-primary-soft;
+
+    border-radius: $radius-md;
+
+    color: $brand-primary;
+
+    font-size: $font-size-xs;
+    line-height: $line-height-base;
+  }
+
+  &__actions {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: $space-4;
+
+    margin-top: $space-6;
+    padding-top: $space-5;
+
+    border-top: 1px solid $color-border;
+
+    .rs-btn {
+      min-width: 108px;
+      min-height: 42px;
+
+      border-radius: $radius-md;
+
+      font-weight: $font-weight-semibold;
+    }
+  }
+
+  @media (max-width: $tablet) {
+    padding: $space-4;
+
+    &__fields {
+      grid-template-columns: 1fr;
+    }
+  }
+}

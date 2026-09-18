@@ -5,6 +5,7 @@ import {
     Outlet,
 } from 'react-router-dom';
 import {
+    MdArrowDropDown,
     MdArrowOutward,
     MdHelpOutline,
     MdInventory2,
@@ -13,6 +14,7 @@ import {
 } from 'react-icons/md';
 import './appLayout.scss';
 import {USER_ROLE_LABELS, type UserRole} from "../types/userRole.ts";
+import { Dropdown } from "rsuite";
 
 export default function AppLayout() {
     const [userRole, setUserRole] = useState<UserRole>('agency');
@@ -139,26 +141,38 @@ export default function AppLayout() {
                                     Yahuán Monroy
                                 </span>
 
-                                <select
-                                    className="app-layout__role-select"
-                                    value={userRole}
-                                    onChange={(event) =>
-                                        setUserRole(event.target.value as UserRole,)
+                                <Dropdown
+                                    placement="bottomEnd"
+                                    className="app-layout__role-dropdown"
+                                    title={
+                                        <span className="app-layout__role-trigger">
+                                            <span className="app-layout__account-role">
+                                                {USER_ROLE_LABELS[userRole]}
+                                            </span>
+                                        </span>
                                     }
-                                    aria-label="Cambiar tipo de usuario"
                                 >
-                                    <option value="media_owner">
-                                        {USER_ROLE_LABELS.media_owner}
-                                    </option>
+                                    <Dropdown.Item
+                                        active={userRole === 'media_owner'}
+                                        onSelect={() => setUserRole('media_owner')}
+                                    >
+                                        Dueño de medios
+                                    </Dropdown.Item>
 
-                                    <option value="agency">
-                                        {USER_ROLE_LABELS.agency}
-                                    </option>
+                                    <Dropdown.Item
+                                        active={userRole === 'agency'}
+                                        onSelect={() => setUserRole('agency')}
+                                    >
+                                        Agencia
+                                    </Dropdown.Item>
 
-                                    <option value="brand">
-                                        {USER_ROLE_LABELS.brand}
-                                    </option>
-                                </select>
+                                    <Dropdown.Item
+                                        active={userRole === 'brand'}
+                                        onSelect={() => setUserRole('brand')}
+                                    >
+                                        Marca
+                                    </Dropdown.Item>
+                                </Dropdown>
                             </div>
                         </div>
                     </div>

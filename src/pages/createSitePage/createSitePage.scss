@@ -1,0 +1,341 @@
+@use '../../styles/partials/variables' as *;
+
+.create-site {
+  width: auto;
+  max-width: 100%;
+  min-width: 0;
+  min-height: 100%;
+
+  padding: $space-5;
+  padding-bottom: $space-6;
+
+  box-sizing: border-box;
+
+  background: $color-background;
+  > * {
+    max-width: 100%;
+    box-sizing: border-box;
+  }
+  &__stepper {
+    display: grid;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+
+    width: 100%;
+    min-width: 0;
+
+    margin-top: $space-5;
+
+    overflow: hidden;
+
+    background: $color-surface;
+
+    border: 1px solid $color-border;
+    border-radius: $radius-md;
+  }
+
+  &__step {
+    appearance: none;
+    display: flex;
+    align-items: center;
+    gap: $space-3;
+    min-width: 0;
+    min-height: 52px;
+    padding: $space-2 $space-4;
+    background: transparent;
+    border: 0;
+    color: $color-text-secondary;
+    text-align: left;
+    cursor: pointer;
+    transition:
+            background-color 150ms ease,
+            color 150ms ease;
+
+    &:hover {
+      background: $color-surface-hover;
+    }
+
+    &--active {
+      color: $brand-primary;
+
+      .create-site__step-number {
+        background: $brand-primary;
+        color: $color-text-inverse;
+      }
+
+      .create-site__step-label {
+        color: $brand-primary;
+        font-weight: $font-weight-semibold;
+      }
+    }
+
+    &--completed {
+      .create-site__step-number {
+        background: $brand-primary-soft;
+        color: $brand-primary;
+      }
+    }
+  }
+
+  &__step-number {
+    display: grid;
+    place-items: center;
+
+    width: 28px;
+    height: 28px;
+
+    flex: 0 0 28px;
+
+    background: $color-surface-secondary;
+
+    border-radius: $radius-md;
+
+    color: $color-text-secondary;
+
+    font-size: $font-size-sm;
+    font-weight: $font-weight-semibold;
+  }
+
+  &__step-content {
+    display: flex;
+    flex-direction: column;
+
+    min-width: 0;
+  }
+
+  &__step-label {
+    overflow: hidden;
+
+    color: $color-text-primary;
+
+    font-size: $font-size-sm;
+    font-weight: $font-weight-medium;
+
+    line-height: 1.25;
+
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  }
+
+  &__step-description {
+    margin-top: 2px;
+
+    overflow: hidden;
+
+    color: $color-text-muted;
+
+    font-size: 10px;
+
+    line-height: 1.25;
+
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  }
+
+  // ---------------------------------------------
+  // Layout
+  // ---------------------------------------------
+
+  &__layout {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 296px;
+    align-items: start;
+    gap: $space-5;
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+    box-sizing: border-box;
+    margin-top: $space-5;
+  }
+
+  &__content {
+    min-width: 0;
+    background: $color-surface;
+    border: 1px solid $color-border;
+    border-radius: $radius-lg;
+    box-shadow: $shadow-sm;
+  }
+  // ---------------------------------------------
+  // Temporal content
+  // ---------------------------------------------
+  &__placeholder {
+    display: flex;
+    flex-direction: column;
+    gap: $space-2;
+
+    padding: $space-6;
+
+    color: $color-text-secondary;
+
+    font-size: $font-size-sm;
+
+    strong {
+      color: $color-text-primary;
+
+      font-size: $font-size-lg;
+      font-weight: $font-weight-semibold;
+    }
+  }
+
+  &__placeholder-actions {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: $space-3;
+
+    margin-top: $space-6;
+  }
+
+  &__primary-button,
+  &__secondary-button {
+    appearance: none;
+
+    min-height: 42px;
+
+    padding: 0 $space-5;
+
+    border-radius: $radius-md;
+
+    font-size: $font-size-sm;
+    font-weight: $font-weight-semibold;
+
+    cursor: pointer;
+  }
+
+  &__primary-button {
+    background: $brand-primary;
+
+    border: 1px solid $brand-primary;
+
+    color: $color-text-inverse;
+  }
+
+  &__secondary-button {
+    background: $color-surface;
+
+    border: 1px solid $color-border;
+
+    color: $color-text-secondary;
+  }
+
+  // ---------------------------------------------
+  // Sidebar
+  // ---------------------------------------------
+
+  &__sidebar {
+    display: flex;
+    flex-direction: column;
+    gap: $space-5;
+
+    min-width: 0;
+  }
+
+  &__sidebar-card {
+    padding: $space-4;
+
+    background: $color-surface;
+
+    border: 1px solid $color-border;
+    border-radius: $radius-lg;
+
+    box-shadow: $shadow-sm;
+  }
+
+  &__sidebar-title {
+    margin: 0 0 $space-4;
+
+    color: $color-text-primary;
+
+    font-size: $font-size-sm;
+    font-weight: $font-weight-semibold;
+  }
+
+  &__preview {
+    display: grid;
+    place-items: center;
+
+    width: 100%;
+    aspect-ratio: 16 / 9;
+
+    background: $color-surface-secondary;
+    border-radius: $radius-md;
+    color: $color-text-secondary;
+    font-size: $font-size-xs;
+  }
+  &__preview-info {
+    margin-top: $space-3;
+    padding: $space-3;
+    background: $brand-primary-soft;
+    border-radius: $radius-md;
+    color: $brand-primary;
+    font-size: 10px;
+    line-height: $line-height-base;
+  }
+
+  // ---------------------------------------------
+  // Summary
+  // ---------------------------------------------
+
+  &__summary {
+    display: flex;
+    flex-direction: column;
+    gap: $space-3;
+
+    margin: 0;
+  }
+
+  &__summary-row {
+    display: grid;
+    grid-template-columns: 72px minmax(0, 1fr);
+    gap: $space-3;
+
+    margin: 0;
+
+    font-size: $font-size-xs;
+
+    dt {
+      color: $color-text-secondary;
+    }
+
+    dd {
+      margin: 0;
+
+      overflow: hidden;
+
+      color: $color-text-primary;
+
+      text-align: right;
+
+      white-space: nowrap;
+      text-overflow: ellipsis;
+    }
+  }
+
+  // ---------------------------------------------
+  // Responsive
+  // ---------------------------------------------
+
+  @media (max-width: $tablet-landscape) {
+    &__stepper {
+      overflow-x: auto;
+
+      grid-template-columns:
+        repeat(5, minmax(180px, 1fr));
+    }
+
+    &__layout {
+      grid-template-columns: minmax(0, 1fr);
+    }
+
+    &__sidebar {
+      display: none;
+    }
+  }
+
+  @media (max-width: $tablet) {
+    padding: $space-4 $space-3;
+
+    &__content {
+      min-height: 0;
+    }
+  }
+}

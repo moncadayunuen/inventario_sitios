@@ -1,0 +1,270 @@
+@use '../../styles/partials/variables' as *;
+
+.identification-step {
+  padding: $space-6;
+
+  &__header {
+    display: flex;
+    align-items: center;
+    gap: $space-3;
+
+    margin-bottom: $space-6;
+  }
+
+  &__header-icon {
+    display: grid;
+    place-items: center;
+
+    width: 34px;
+    height: 34px;
+    flex: 0 0 34px;
+
+    background: $brand-primary-soft;
+
+    border-radius: $radius-md;
+
+    color: $brand-primary;
+  }
+
+  &__title {
+    margin: 0;
+
+    color: $color-text-primary;
+
+    font-size: $font-size-lg;
+    font-weight: $font-weight-semibold;
+    line-height: $line-height-tight;
+  }
+
+  &__description {
+    margin: 3px 0 0;
+
+    color: $color-text-secondary;
+
+    font-size: $font-size-xs;
+  }
+
+  &__fields {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: $space-4;
+
+    margin-bottom: $space-6;
+  }
+
+  &__field {
+    min-width: 0;
+
+    .rs-input,
+    .rs-picker-toggle {
+      min-height: 42px;
+
+      border-color: $color-border !important;
+      border-radius: $radius-md !important;
+
+      box-shadow: none !important;
+    }
+
+    .rs-input:focus,
+    .rs-picker-toggle:focus,
+    .rs-picker-toggle-active {
+      border-color: $brand-primary !important;
+
+      box-shadow:
+              0 0 0 3px rgba(30, 64, 105, 0.1) !important;
+    }
+  }
+
+  &__label {
+    display: block;
+
+    margin-bottom: $space-2;
+
+    color: $color-text-primary;
+
+    font-size: $font-size-xs;
+    font-weight: $font-weight-semibold;
+
+    span {
+      color: $brand-primary;
+    }
+  }
+
+  &__help {
+    display: block;
+
+    margin-top: $space-2;
+
+    color: $color-text-muted;
+
+    font-size: 10px;
+    line-height: 1.35;
+  }
+
+  &__images {
+    margin-top: $space-2;
+  }
+
+  &__images-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: $space-4;
+
+    margin-bottom: $space-3;
+  }
+
+  &__images-title {
+    margin: 0;
+
+    color: $color-text-primary;
+
+    font-size: $font-size-sm;
+    font-weight: $font-weight-semibold;
+  }
+
+  &__images-description {
+    margin: 3px 0 0;
+
+    color: $color-text-secondary;
+
+    font-size: $font-size-xs;
+  }
+
+  &__images-count {
+    color: $color-text-secondary;
+
+    font-size: $font-size-xs;
+    font-weight: $font-weight-medium;
+  }
+
+  &__file-input {
+    display: none;
+  }
+
+  &__dropzone {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: $space-2;
+
+    min-height: 116px;
+
+    padding: $space-5;
+
+    background: $color-surface-secondary;
+
+    border: 1px dashed $color-border;
+    border-radius: $radius-md;
+
+    color: $color-text-secondary;
+
+    text-align: center;
+
+    cursor: pointer;
+
+    transition:
+            border-color 150ms ease,
+            background-color 150ms ease;
+
+    &:hover,
+    &:focus {
+      background: $brand-primary-soft;
+      border-color: $brand-primary;
+
+      outline: none;
+    }
+
+    strong {
+      color: $color-text-primary;
+
+      font-size: $font-size-xs;
+      font-weight: $font-weight-semibold;
+    }
+
+    span {
+      color: $color-text-muted;
+
+      font-size: 10px;
+    }
+  }
+
+  &__upload-icon {
+    color: $brand-primary;
+  }
+
+  &__image-list {
+    display: flex;
+    flex-direction: column;
+    gap: $space-2;
+
+    margin-top: $space-3;
+  }
+
+  &__image-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: $space-3;
+
+    padding: $space-2 $space-3;
+
+    background: $color-surface-secondary;
+
+    border-radius: $radius-md;
+
+    font-size: $font-size-xs;
+
+    span {
+      min-width: 0;
+
+      overflow: hidden;
+
+      white-space: nowrap;
+      text-overflow: ellipsis;
+    }
+
+    button {
+      appearance: none;
+
+      padding: 0;
+
+      background: transparent;
+      border: 0;
+
+      color: $color-danger;
+
+      font-size: $font-size-xs;
+      font-weight: $font-weight-medium;
+
+      cursor: pointer;
+    }
+  }
+
+  &__actions {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: $space-4;
+
+    margin-top: $space-6;
+
+    .rs-btn {
+      min-width: 108px;
+      min-height: 42px;
+
+      border-radius: $radius-md;
+
+      font-weight: $font-weight-semibold;
+    }
+  }
+
+  @media (max-width: $tablet) {
+    padding: $space-4;
+
+    &__fields {
+      grid-template-columns: 1fr;
+    }
+  }
+}

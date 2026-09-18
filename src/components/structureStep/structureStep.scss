@@ -1,0 +1,239 @@
+@use '../../styles/partials/variables' as *;
+
+.structure-step {
+  padding: $space-6;
+
+  &__header {
+    display: flex;
+    align-items: center;
+    gap: $space-3;
+
+    margin-bottom: $space-6;
+  }
+
+  &__header-icon {
+    display: grid;
+    place-items: center;
+
+    width: 34px;
+    height: 34px;
+    flex: 0 0 34px;
+
+    background: $brand-primary-soft;
+    border-radius: $radius-md;
+
+    color: $brand-primary;
+  }
+
+  &__title {
+    margin: 0;
+
+    color: $color-text-primary;
+
+    font-size: $font-size-lg;
+    font-weight: $font-weight-semibold;
+    line-height: $line-height-tight;
+  }
+
+  &__description {
+    margin: 3px 0 0;
+
+    color: $color-text-secondary;
+
+    font-size: $font-size-xs;
+  }
+
+  &__fields,
+  &__dimensions {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: $space-4;
+  }
+
+  &__field {
+    min-width: 0;
+
+    .rs-input,
+    .rs-input-number,
+    .rs-picker-toggle {
+      border-color: $color-border !important;
+      border-radius: $radius-md !important;
+
+      box-shadow: none !important;
+    }
+
+    .rs-input,
+    .rs-picker-toggle {
+      min-height: 42px;
+    }
+
+    .rs-input-number {
+      width: 100%;
+      min-height: 42px;
+    }
+
+    .rs-input:focus,
+    .rs-input-number:focus-within,
+    .rs-picker-toggle:focus,
+    .rs-picker-toggle-active {
+      border-color: $brand-primary !important;
+
+      box-shadow:
+              0 0 0 3px rgba(30, 64, 105, 0.1) !important;
+    }
+
+    textarea.rs-input {
+      min-height: 88px;
+
+      padding: $space-3;
+
+      line-height: $line-height-base;
+
+      resize: vertical;
+    }
+
+    &--full {
+      margin-top: $space-5;
+    }
+  }
+
+  &__label {
+    display: block;
+
+    margin-bottom: $space-2;
+
+    color: $color-text-primary;
+
+    font-size: $font-size-xs;
+    font-weight: $font-weight-semibold;
+  }
+
+  &__help {
+    display: block;
+
+    margin-top: $space-2;
+
+    color: $color-text-muted;
+
+    font-size: 10px;
+    line-height: 1.35;
+  }
+
+  &__section {
+    margin-top: $space-6;
+    padding-top: $space-5;
+
+    border-top: 1px solid $color-border;
+  }
+
+  &__section-header {
+    margin-bottom: $space-4;
+
+    h3 {
+      margin: 0;
+
+      color: $color-text-primary;
+
+      font-size: $font-size-sm;
+      font-weight: $font-weight-semibold;
+    }
+
+    span {
+      display: block;
+
+      margin-top: 3px;
+
+      color: $color-text-secondary;
+
+      font-size: $font-size-xs;
+    }
+  }
+
+  &__measurement {
+    position: relative;
+
+    .rs-input-number {
+      padding-right: 34px;
+    }
+
+    > span {
+      position: absolute;
+      top: 50%;
+      right: 38px;
+
+      z-index: 2;
+
+      transform: translateY(-50%);
+
+      color: $color-text-muted;
+
+      font-size: $font-size-xs;
+
+      pointer-events: none;
+    }
+  }
+
+  &__toggle-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: $space-5;
+
+    h3 {
+      margin: 0;
+
+      color: $color-text-primary;
+
+      font-size: $font-size-sm;
+      font-weight: $font-weight-semibold;
+    }
+
+    p {
+      max-width: 560px;
+
+      margin: 4px 0 0;
+
+      color: $color-text-secondary;
+
+      font-size: $font-size-xs;
+      line-height: $line-height-base;
+    }
+
+    .rs-toggle-checked {
+      background: $brand-primary;
+    }
+  }
+
+  &__orientation {
+    max-width: 420px;
+
+    margin-top: $space-4;
+  }
+
+  &__actions {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: $space-4;
+
+    margin-top: $space-6;
+
+    .rs-btn {
+      min-width: 108px;
+      min-height: 42px;
+
+      border-radius: $radius-md;
+
+      font-weight: $font-weight-semibold;
+    }
+  }
+
+  @media (max-width: $tablet) {
+    padding: $space-4;
+
+    &__fields,
+    &__dimensions {
+      grid-template-columns: 1fr;
+    }
+  }
+}

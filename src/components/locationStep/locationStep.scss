@@ -1,0 +1,145 @@
+@use '../../styles/partials/variables' as *;
+
+.location-step {
+  padding: $space-6;
+
+  &__header {
+    display: flex;
+    align-items: center;
+    gap: $space-3;
+
+    margin-bottom: $space-6;
+  }
+
+  &__header-icon {
+    display: grid;
+    place-items: center;
+
+    width: 34px;
+    height: 34px;
+    flex: 0 0 34px;
+
+    background: $brand-primary-soft;
+
+    border-radius: $radius-md;
+
+    color: $brand-primary;
+  }
+
+  &__title {
+    margin: 0;
+
+    color: $color-text-primary;
+
+    font-size: $font-size-lg;
+    font-weight: $font-weight-semibold;
+    line-height: $line-height-tight;
+  }
+
+  &__description {
+    margin: 3px 0 0;
+
+    color: $color-text-secondary;
+
+    font-size: $font-size-xs;
+  }
+
+  &__fields {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: $space-5 $space-4;
+
+    margin-bottom: $space-5;
+  }
+
+  &__field {
+    min-width: 0;
+
+    .rs-input,
+    .rs-picker-toggle {
+      min-height: 42px;
+
+      border-color: $color-border !important;
+      border-radius: $radius-md !important;
+
+      box-shadow: none !important;
+    }
+
+    .rs-input:focus,
+    .rs-picker-toggle:focus,
+    .rs-picker-toggle-active {
+      border-color: $brand-primary !important;
+
+      box-shadow:
+              0 0 0 3px rgba(30, 64, 105, 0.1) !important;
+    }
+
+    textarea.rs-input {
+      min-height: 88px;
+
+      padding: $space-3;
+
+      line-height: $line-height-base;
+
+      resize: vertical;
+    }
+
+    &--full {
+      width: 100%;
+
+      margin-bottom: $space-5;
+    }
+  }
+
+  &__label {
+    display: block;
+
+    margin-bottom: $space-2;
+
+    color: $color-text-primary;
+
+    font-size: $font-size-xs;
+    font-weight: $font-weight-semibold;
+
+    span {
+      color: $brand-primary;
+    }
+  }
+
+  &__help {
+    display: block;
+
+    margin-top: $space-2;
+
+    color: $color-text-muted;
+
+    font-size: 10px;
+    line-height: 1.35;
+  }
+
+  &__actions {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: $space-4;
+
+    margin-top: $space-6;
+
+    .rs-btn {
+      min-width: 108px;
+      min-height: 42px;
+
+      border-radius: $radius-md;
+
+      font-weight: $font-weight-semibold;
+    }
+  }
+
+  @media (max-width: $tablet) {
+    padding: $space-4;
+
+    &__fields {
+      grid-template-columns: 1fr;
+    }
+  }
+}

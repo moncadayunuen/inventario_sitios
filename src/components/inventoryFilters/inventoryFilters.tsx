@@ -1,33 +1,16 @@
 import { useState } from 'react';
 
-import {
-    Button,
-    Checkbox,
-    Input,
-    InputGroup,
-} from 'rsuite';
-
-import {
-    MdSearch,
-    MdTune,
-} from 'react-icons/md';
-
-import type {
-    InventoryFilterOption,
-    InventoryFilterValues,
-} from '../../types/inventory';
-
-import type {
-    SiteStatus,
-    SiteStructureType,
-} from '../../types/site';
-
+import {Button, Checkbox, Input, InputGroup,} from 'rsuite';
+import {MdSearch, MdTune,} from 'react-icons/md';
+import type {InventoryFilterOption, InventoryFilterValues,} from '../../types/inventory';
+import type {SiteStatus, SiteStructureType,} from '../../types/site';
 import './inventoryFilters.scss';
 import type {UserRole} from "../../types/userRole.ts";
 
 interface InventoryFiltersProps {
     filters: InventoryFilterValues;
     userRole: UserRole;
+    toggleFilters: () => void;
     statusOptions: InventoryFilterOption<SiteStatus>[];
     typeOptions: InventoryFilterOption<SiteStructureType>[];
     ownerOptions: InventoryFilterOption[];
@@ -59,6 +42,7 @@ export default function InventoryFilters({
      statusOptions,
      typeOptions,
      ownerOptions,
+     toggleFilters,
      stateOptions,
      onChange,
      onClear,
@@ -141,6 +125,7 @@ export default function InventoryFilters({
                     <MdTune
                         className="inventory-filters__header-icon"
                         aria-hidden="true"
+                        onClick={() => toggleFilters()}
                     />
                 </div>
 
