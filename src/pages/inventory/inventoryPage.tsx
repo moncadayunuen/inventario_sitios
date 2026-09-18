@@ -1,18 +1,8 @@
 import {
-    useCallback,
-    useEffect,
     useMemo,
     useState,
 } from 'react';
-
-import {
-    Button,
-    Input,
-    InputGroup,
-    Pagination,
-    Tag,
-} from 'rsuite';
-
+import {Button, Input, InputGroup, Pagination, Tag,} from 'rsuite';
 import {
     MdAdd,
     MdFilterList,
@@ -21,15 +11,8 @@ import {
 import { generateSites } from '../../data/generateSites';
 import InventoryFilters from '../../components/inventoryFilters/inventoryFilters';
 import InventoryTable from '../../components/inventoryTable/inventoryTable';
-import {
-    EMPTY_INVENTORY_FILTERS,
-    type InventoryFilterValues,
-} from '../../types/inventory';
-import type {
-    Site,
-    SiteStatus,
-    SiteStructureType,
-} from '../../types/site';
+import {EMPTY_INVENTORY_FILTERS, type InventoryFilterValues,} from '../../types/inventory';
+import type {Site, SiteStatus, SiteStructureType,} from '../../types/site';
 import './inventoryPage.scss';
 import DeleteSiteModal from "../../components/deleteSiteModal/deleteSiteModal.tsx";
 import PageHeader from "../../components/pageHeader/pageHeader.tsx";
@@ -62,7 +45,7 @@ export default function InventoryPage() {
     const [siteToDelete, setSiteToDelete] = useState<Site | null>(null);
     const [deletingSite, setDeletingSite] = useState(false);
     const [page, setPage] = useState(1);
-    const [pageSize, setPageSize] = useState(DEFAULT_PAGE_SIZE);
+    const [pageSize] = useState(DEFAULT_PAGE_SIZE);
     const [search, setSearch] = useState('');
     const [filters, setFilters] = useState<InventoryFilterValues>(EMPTY_INVENTORY_FILTERS,);
     const { userRole } = useOutletContext<{ userRole: UserRole; }>();
@@ -247,7 +230,7 @@ export default function InventoryPage() {
         );
     }, [sites, search, filters,]);
 
-    const handlePageSizeChange = useCallback((nextPageSize: number,)=> {
+    /*const handlePageSizeChange = useCallback((nextPageSize: number,)=> {
         const safePageSize = Math.max(5, Math.min(nextPageSize, 10,),);
 
         setPageSize((currentPageSize,) => {
@@ -257,12 +240,7 @@ export default function InventoryPage() {
                 return safePageSize;
             },
         );
-    }, [],);
-
-    useEffect(() => {
-        const totalPages = Math.max(1, Math.ceil(filteredSites.length / pageSize,),);
-        setPage((currentPage) => Math.min(currentPage, totalPages,),);
-    }, [filteredSites.length, pageSize,]);
+    }, [],);*/
 
     const visibleSites = useMemo(() => {
         const start = (page - 1) * pageSize;
