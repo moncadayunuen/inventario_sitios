@@ -1,0 +1,461 @@
+@use '../styles/partials/variables' as *;
+
+.app-layout {
+  display: grid;
+  grid-template-columns: 224px minmax(0, 1fr);
+  width: 100%;
+  height: 100dvh;
+  overflow: hidden;
+  background: $color-background;
+  &__sidebar {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    height: 100dvh;
+
+    overflow: hidden;
+    background: $color-surface;
+    border-right: 1px solid $color-border;
+  }
+  &__brand {
+    display: flex;
+    align-items: center;
+    gap: $space-3;
+    min-height: 72px;
+    padding: 0 $space-5;
+    flex-shrink: 0;
+
+    color: $color-text-primary;
+    text-decoration: none;
+    border-bottom: 1px solid $color-border;
+    &:hover {
+      color: $color-text-primary;
+      text-decoration: none;
+    }
+  }
+
+  &__brand-mark {
+    display: grid;
+    place-items: center;
+    width: 38px;
+    height: 38px;
+    flex: 0 0 38px;
+    background: $brand-primary;
+    border-radius: 50%;
+    color: $color-text-inverse;
+    font-size: 21px;
+    svg {
+      width: 21px;
+      height: 21px;
+    }
+  }
+  &__brand-content {
+    display: flex;
+    flex-direction: column;
+
+    min-width: 0;
+  }
+  &__brand-name {
+    overflow: hidden;
+    color: $color-text-primary;
+
+    font-size: $font-size-md;
+    font-weight: $font-weight-semibold;
+
+    line-height: 1.2;
+
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  }
+  &__brand-description {
+    margin-top: 3px;
+
+    overflow: hidden;
+
+    color: $color-text-muted;
+
+    font-size: 9px;
+    font-weight: $font-weight-medium;
+    letter-spacing: 0.08em;
+    line-height: 1.2;
+
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  }
+  &__navigation {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    gap: 6px;
+    min-height: 0;
+    padding: $space-5 $space-3;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+  }
+  &__nav-item {
+    display: flex;
+    align-items: center;
+    gap: $space-3;
+    min-height: 42px;
+
+    padding: 0 $space-4;
+
+    flex-shrink: 0;
+
+    border-radius: $radius-md;
+    color: $color-text-secondary;
+    text-decoration: none;
+    cursor: default;
+    transition: background-color 150ms ease, color 150ms ease;
+
+    &[href] {
+      cursor: pointer;
+    }
+
+    &:hover {
+      background: $color-surface-hover;
+
+      color: $color-text-primary;
+      text-decoration: none;
+    }
+
+    &--active {
+      background: $brand-primary-soft;
+
+      color: $brand-primary;
+
+      font-weight: $font-weight-medium;
+
+      &:hover {
+        background: $brand-primary-soft;
+        color: $brand-primary;
+      }
+    }
+  }
+
+  &__nav-icon {
+    width: 19px;
+    height: 19px;
+
+    flex: 0 0 19px;
+  }
+
+  &__nav-label {
+    font-size: $font-size-sm;
+
+    line-height: 1;
+  }
+  &__support {
+    margin: auto $space-4 $space-5;
+    padding: $space-4;
+    flex-shrink: 0;
+    background: $color-surface-secondary;
+
+    border: 1px solid $color-border;
+    border-radius: $radius-md;
+  }
+
+  &__support-icon {
+    display: grid;
+    place-items: center;
+
+    width: 28px;
+    height: 28px;
+
+    margin-bottom: $space-3;
+
+    background: $color-surface;
+
+    border: 1px solid $color-border;
+    border-radius: 50%;
+
+    color: $color-text-secondary;
+
+    svg {
+      width: 17px;
+      height: 17px;
+    }
+  }
+
+  &__support-content {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  &__support-title {
+    color: $color-text-primary;
+
+    font-size: $font-size-xs;
+    font-weight: $font-weight-semibold;
+  }
+
+  &__support-description {
+    color: $color-text-muted;
+    font-size: 10px;
+    line-height: 1.45;
+  }
+
+  &__support-button {
+    width: 100%;
+    min-height: 32px;
+
+    margin-top: $space-3;
+    padding: 0 $space-3;
+    background: $color-surface;
+    border: 1px solid $color-border;
+    border-radius: $radius-sm;
+
+    color: $color-text-primary;
+
+    font-family: inherit;
+    font-size: 11px;
+    font-weight: $font-weight-medium;
+
+    cursor: pointer;
+
+    transition:
+            background-color 150ms ease,
+            border-color 150ms ease;
+
+    &:hover {
+      background: $color-surface-hover;
+      border-color: $color-border-strong;
+    }
+  }
+  &__workspace {
+    display: grid;
+    grid-template-rows:72px minmax(0, 1fr);
+    min-width: 0;
+    min-height: 0;
+    height: 100dvh;
+    overflow: hidden;
+  }
+  &__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: $space-6;
+    min-width: 0;
+    min-height: 72px;
+    padding: 0 $space-6;
+    background: $color-surface;
+    border-bottom: 1px solid $color-border-strong;
+  }
+  &__global-search {
+    position: relative;
+
+    display: flex;
+    align-items: center;
+    width: min(460px, 100%);
+    min-width: 0;
+  }
+
+  &__search-icon {
+    position: absolute;
+    left: 14px;
+    width: 18px;
+    height: 18px;
+    color: $color-text-muted;
+    pointer-events: none;
+  }
+
+  &__search-input {
+    width: 100%;
+    height: 38px;
+
+    padding: 0 58px 0 42px;
+
+    background: $color-surface-secondary;
+
+    border: 1px solid transparent;
+    border-radius: $radius-md;
+
+    outline: 0;
+    color: $color-text-primary;
+    font-family: inherit;
+    font-size: $font-size-xs;
+    transition:
+            background-color 150ms ease,
+            border-color 150ms ease,
+            box-shadow 150ms ease;
+
+    &::placeholder {
+      color: $color-text-muted;
+    }
+
+    &:hover {
+      border-color: $color-border;
+    }
+
+    &:focus {
+      background: $color-surface;
+      border-color: $brand-primary;
+      box-shadow: 0 0 0 3px $brand-primary-soft;
+    }
+  }
+
+  &__search-shortcut {
+    position: absolute;
+
+    right: 10px;
+
+    display: grid;
+    place-items: center;
+
+    min-width: 36px;
+    height: 23px;
+    padding-inline: 5px;
+    background: $color-surface;
+
+    border: 1px solid $color-border;
+    border-radius: $radius-sm;
+
+    color: $color-text-muted;
+
+    font-size: 10px;
+
+    pointer-events: none;
+  }
+  &__header-actions {
+    display: flex;
+    align-items: center;
+
+    gap: $space-4;
+    flex-shrink: 0;
+  }
+
+  &__notification {
+    display: grid;
+    place-items: center;
+
+    width: 38px;
+    height: 38px;
+
+    padding: 0;
+
+    background: transparent;
+
+    border: 0;
+    border-radius: 50%;
+    color: $color-text-secondary;
+    cursor: pointer;
+    transition: background-color 150ms ease, color 150ms ease;
+    svg {
+      width: 21px;
+      height: 21px;
+    }
+    &:hover {
+      background: $color-surface-hover;
+      color: $color-text-primary;
+    }
+  }
+  &__account {
+    display: flex;
+    align-items: center;
+    gap: $space-3;
+
+    min-width: 0;
+  }
+
+  &__avatar {
+    display: grid;
+    place-items: center;
+
+    width: 36px;
+    height: 36px;
+    flex: 0 0 36px;
+    background: $brand-primary;
+    border-radius: 50%;
+
+    color: $color-text-inverse;
+    font-size: 11px;
+    font-weight: $font-weight-semibold;
+  }
+
+  &__account-info {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+  }
+
+  &__account-name {
+    max-width: 150px;
+    overflow: hidden;
+    color: $color-text-primary;
+    font-size: $font-size-xs;
+    font-weight: $font-weight-semibold;
+    line-height: 1.35;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  }
+
+  &__account-role {
+    max-width: 150px;
+
+    overflow: hidden;
+    color: $color-text-muted;
+    font-size: 10px;
+    line-height: 1.35;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  }
+  &__main {
+    min-width: 0;
+    min-height: 0;
+    overflow: hidden;
+    background: $color-background;
+  }
+
+  // ---------------------------------------------
+  // Responsive
+  // ---------------------------------------------
+
+  @media (max-width: $tablet-landscape) {
+    grid-template-columns: 1fr;
+
+    &__sidebar {
+      display: none;
+    }
+
+    &__header {
+      padding:
+              0
+              $space-4;
+    }
+
+    &__global-search {
+      width: min(420px, 100%);
+    }
+  }
+
+  @media (max-width: $tablet) {
+    &__workspace {
+      grid-template-rows:
+        64px
+        minmax(0, 1fr);
+    }
+
+    &__header {
+      min-height: 64px;
+
+      gap: $space-3;
+    }
+
+    &__global-search {
+      flex: 1;
+    }
+
+    &__search-shortcut {
+      display: none;
+    }
+
+    &__search-input {
+      padding-right: $space-4;
+    }
+
+    &__account-info {
+      display: none;
+    }
+  }
+}

@@ -1,0 +1,17 @@
+@use './partials/variables' as *;
+@use './partials/containers';
+@use './partials/mixins';
+@use './partials/accesibility';
+@use './partials/reset';
+
+html,
+body,
+#root {
+  min-height: 100%;
+}
+
+body {
+  margin: 0;
+  background-color: #f7f8fa;
+  color: #111827;
+}

@@ -1,0 +1,98 @@
+@use '../../styles/partials/variables' as *;
+
+.inventory-summary {
+  display: flex;
+  align-items: center;
+
+  width: 100%;
+  min-width: 0;
+
+  margin-bottom: $space-4;
+
+  border-bottom: 1px solid $color-border-soft;
+
+  &__item {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: $space-2;
+    min-height: 48px;
+    padding: 0 $space-4;
+    background: transparent;
+    border: 0;
+    color: $color-text-secondary;
+    cursor: pointer;
+    white-space: nowrap;
+    transition:
+            color 150ms ease,
+            background-color 150ms ease;
+    &:hover {
+      background: $color-surface-hover;
+      color: $color-text-primary;
+    }
+    &--active {
+      color: $brand-primary;
+
+      &::after {
+        content: '';
+
+        position: absolute;
+        right: $space-4;
+        bottom: -1px;
+        left: $space-4;
+        height: 2px;
+        background: $brand-primary;
+        border-radius: $radius-pill;
+      }
+    }
+  }
+  &__label {
+    font-size: $font-size-sm;
+    font-weight: $font-weight-medium;
+  }
+  &__value {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 30px;
+    height: 22px;
+    padding: 0 $space-2;
+    background: $color-surface-secondary;
+    border-radius: $radius-pill;
+
+    color: $color-text-secondary;
+
+    font-size: $font-size-xs;
+    font-weight: $font-weight-semibold;
+  }
+
+  &__item--active &__value {
+    background: $brand-primary-soft;
+    color: $brand-primary;
+  }
+
+  &__dot {
+    width: 7px;
+    height: 7px;
+
+    flex: 0 0 7px;
+
+    border-radius: 50%;
+
+    &--available {
+      background: $color-success;
+    }
+
+    &--occupied {
+      background: $color-danger;
+    }
+
+    &--maintenance {
+      background: $color-warning;
+    }
+
+    &--inactive {
+      background: $color-neutral;
+    }
+  }
+}

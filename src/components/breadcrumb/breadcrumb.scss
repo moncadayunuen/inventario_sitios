@@ -1,0 +1,66 @@
+@use '../../styles/partials/variables' as *;
+
+.breadcrumb {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: $space-1;
+
+  width: 100%;
+  min-width: 0;
+
+  margin-bottom: $space-4;
+
+  &__item {
+    display: flex;
+    align-items: center;
+    gap: $space-1;
+
+    min-width: 0;
+  }
+
+  &__label,
+  &__link {
+    color: $color-text-muted;
+
+    font-size: $font-size-xs;
+    font-weight: $font-weight-regular;
+    line-height: $line-height-base;
+  }
+
+  &__link {
+    padding: 0;
+
+    background: transparent;
+
+    border: 0;
+
+    cursor: pointer;
+
+    transition: color 150ms ease;
+
+    &:hover {
+      color: $brand-primary;
+    }
+
+    &:focus-visible {
+      outline: 2px solid $brand-primary;
+      outline-offset: 3px;
+
+      border-radius: 2px;
+    }
+  }
+
+  &__label {
+    &--current {
+      color: $color-text-secondary;
+      font-weight: $font-weight-medium;
+    }
+  }
+
+  &__separator {
+    flex: 0 0 auto;
+
+    color: $color-text-muted;
+  }
+}

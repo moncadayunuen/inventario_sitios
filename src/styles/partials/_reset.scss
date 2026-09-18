@@ -1,0 +1,250 @@
+@use 'variables' as *;
+
+// ---------------------------------------------
+// RSuite theme
+// ---------------------------------------------
+
+:root {
+  --rs-primary-50: #eef3f9;
+  --rs-primary-100: #dce7f2;
+  --rs-primary-200: #bfd1e3;
+  --rs-primary-300: #91afcb;
+  --rs-primary-400: #5f88ad;
+
+  --rs-primary-500: #1e4069;
+  --rs-primary-600: #19375b;
+  --rs-primary-700: #152f4f;
+  --rs-primary-800: #112741;
+  --rs-primary-900: #0d2036;
+
+  --rs-btn-primary-bg: #1e4069;
+  --rs-btn-primary-hover-bg: #19375b;
+  --rs-btn-primary-active-bg: #152f4f;
+
+  --rs-text-link: #1e4069;
+  --rs-text-link-hover: #19375b;
+
+  --rs-state-focus-shadow:
+          0 0 0 3px rgba(30, 64, 105, 0.12);
+}
+
+// ---------------------------------------------
+// Primary buttons
+// ---------------------------------------------
+
+.rs-btn.rs-btn-primary {
+  background: $brand-primary !important;
+  border-color: $brand-primary !important;
+  color: $color-text-inverse !important;
+
+  &:hover,
+  &:focus,
+  &:focus-visible {
+    background: $brand-primary-hover !important;
+    border-color: $brand-primary-hover !important;
+    color: $color-text-inverse !important;
+  }
+
+  &:active {
+    background: $brand-primary-active !important;
+    border-color: $brand-primary-active !important;
+    color: $color-text-inverse !important;
+  }
+}
+
+// ---------------------------------------------
+// Inputs
+// ---------------------------------------------
+
+.rs-input,
+.rs-input-group {
+  border-color: $color-border;
+  border-radius: $radius-md;
+}
+
+.rs-input {
+  &:focus,
+  &:focus-visible {
+    outline: none;
+  }
+}
+
+// ---------------------------------------------
+// Checkbox
+// ---------------------------------------------
+
+.rs-checkbox {
+  .rs-checkbox-control {
+    &::before {
+      border-color: $color-border-strong !important;
+    }
+  }
+
+  &:hover {
+    .rs-checkbox-control::before {
+      border-color: $brand-primary !important;
+    }
+  }
+}
+
+// Checked
+.rs-checkbox.rs-checkbox-checked {
+  .rs-checkbox-control {
+    &::before {
+      background: $brand-primary !important;
+      border-color: $brand-primary !important;
+    }
+
+    &::after {
+      border-color: $color-text-inverse !important;
+    }
+  }
+}
+
+// Indeterminate
+.rs-checkbox.rs-checkbox-indeterminate {
+  .rs-checkbox-control {
+    &::before {
+      background: $brand-primary !important;
+      border-color: $brand-primary !important;
+    }
+
+    &::after {
+      background: $color-text-inverse !important;
+    }
+  }
+}
+
+// Focus
+.rs-checkbox:focus-within {
+  .rs-checkbox-control::before {
+    border-color: $brand-primary !important;
+
+    box-shadow:
+            0 0 0 3px
+            rgba(30, 64, 105, 0.12) !important;
+  }
+}
+
+// ---------------------------------------------
+// CheckPicker / CheckboxGroup
+// ---------------------------------------------
+
+.rs-picker-check-menu-item.rs-picker-check-menu-item-active,
+.rs-picker-check-menu-item.rs-picker-check-menu-item-focus {
+  .rs-checkbox-control::before {
+    border-color: $brand-primary !important;
+  }
+}
+
+.rs-picker-check-menu-item {
+  .rs-checkbox.rs-checkbox-checked {
+    .rs-checkbox-control::before {
+      background: $brand-primary !important;
+      border-color: $brand-primary !important;
+    }
+  }
+}
+
+// ---------------------------------------------
+// Radio
+// ---------------------------------------------
+
+.rs-radio.rs-radio-checked {
+  .rs-radio-control {
+    &::before {
+      border-color: $brand-primary !important;
+    }
+
+    &::after {
+      background: $brand-primary !important;
+    }
+  }
+}
+
+// ---------------------------------------------
+// Toggle
+// ---------------------------------------------
+
+.rs-toggle.rs-toggle-checked {
+  .rs-toggle-presentation {
+    background: $brand-primary !important;
+
+    &:hover {
+      background: $brand-primary-hover !important;
+    }
+  }
+}
+
+// ---------------------------------------------
+// Pagination
+// ---------------------------------------------
+
+.rs-pagination {
+  .rs-pagination-btn {
+    color: $color-text-secondary;
+
+    &:hover,
+    &:focus {
+      background: $brand-primary-soft !important;
+      color: $brand-primary !important;
+    }
+  }
+
+  .rs-pagination-btn.rs-pagination-btn-active {
+    background: $brand-primary !important;
+    border-color: $brand-primary !important;
+    color: $color-text-inverse !important;
+
+    &:hover,
+    &:focus,
+    &:active {
+      background: $brand-primary-hover !important;
+      border-color: $brand-primary-hover !important;
+      color: $color-text-inverse !important;
+    }
+  }
+}
+
+// ---------------------------------------------
+// Links
+// ---------------------------------------------
+
+.rs-btn.rs-btn-link {
+  color: $brand-primary !important;
+
+  &:hover,
+  &:focus {
+    color: $brand-primary-hover !important;
+  }
+
+  &:active {
+    color: $brand-primary-active !important;
+  }
+}
+
+// ---------------------------------------------
+// Picker selected / active states
+// ---------------------------------------------
+
+.rs-picker-select-menu-item.rs-picker-select-menu-item-active,
+.rs-picker-select-menu-item.rs-picker-select-menu-item-focus {
+  color: $brand-primary !important;
+}
+
+.rs-picker-toggle-value {
+  color: $brand-primary;
+}
+
+// ---------------------------------------------
+// Focus
+// ---------------------------------------------
+
+.rs-btn:focus-visible,
+.rs-pagination-btn:focus-visible {
+  outline: none;
+
+  box-shadow:
+          0 0 0 3px
+          rgba(30, 64, 105, 0.12) !important;
+}

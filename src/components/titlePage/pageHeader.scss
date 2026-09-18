@@ -1,0 +1,56 @@
+@use '../../styles/partials/variables' as *;
+
+.page-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: $space-6;
+
+  width: 100%;
+  min-width: 0;
+
+  margin-bottom: $space-6;
+
+  &__content {
+    min-width: 0;
+  }
+
+  &__title {
+    margin: 0;
+
+    color: $color-text-primary;
+
+    font-size: 28px;
+    font-weight: $font-weight-semibold;
+    line-height: 1.25;
+  }
+
+  &__description {
+    margin: $space-2 0 0;
+
+    color: $color-text-secondary;
+
+    font-size: $font-size-sm;
+    line-height: $line-height-base;
+  }
+
+  &__action {
+    display: flex;
+    align-items: center;
+
+    flex: 0 0 auto;
+  }
+
+  @media (max-width: $tablet) {
+    flex-direction: column;
+    gap: $space-4;
+
+    &__action {
+      width: 100%;
+
+      > * {
+        width: 100%;
+      }
+    }
+  }
+}

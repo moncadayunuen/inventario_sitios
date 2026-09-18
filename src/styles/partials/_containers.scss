@@ -1,0 +1,31 @@
+@use 'variables' as *;
+
+.container {
+  width: 100%;
+  max-width: 1920px;
+  margin-inline: auto;
+
+  @media (max-width: $screen-2xl) {
+    max-width: 1800px;
+  }
+
+  @media (max-width: $screen-xl) {
+    max-width: 1600px;
+  }
+
+  @media (max-width: $screen-lg) {
+    max-width: 1440px;
+  }
+
+  @media (max-width: $screen-desktop) {
+    max-width: 1280px;
+  }
+
+  @media (max-width: $screen-laptop) {
+    max-width: 1140px;
+  }
+
+  @media (max-width: $tablet-landscape) {
+    max-width: 100%;
+  }
+}

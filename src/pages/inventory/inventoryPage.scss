@@ -1,0 +1,934 @@
+@use '../../styles/partials/variables' as *;
+
+.inventory {
+  width: 100%;
+  height: 100%;
+
+  min-width: 0;
+  min-height: 0;
+
+  overflow: hidden;
+
+  background: $color-background;
+
+  // ---------------------------------------------
+  // Layout
+  // ---------------------------------------------
+
+  &__layout {
+    display: grid;
+
+    /*
+     * La columna central puede encogerse.
+     * El panel de filtros conserva su ancho.
+     */
+    grid-template-columns:
+      minmax(0, 1fr)
+      280px;
+
+    width: 100%;
+    max-width: 100%;
+    height: 100%;
+
+    min-width: 0;
+    min-height: 0;
+
+    overflow: hidden;
+  }
+
+  // ---------------------------------------------
+  // Main
+  // ---------------------------------------------
+
+  &__main {
+    display: flex;
+    flex-direction: column;
+
+    /*
+     * CRÍTICO:
+     * evita que cualquier hijo ensanche
+     * la columna del grid.
+     */
+    width: auto;
+    max-width: 100%;
+
+    min-width: 0;
+    min-height: 0;
+
+    padding: $space-6;
+
+    overflow-x: hidden;
+    overflow-y: auto;
+  }
+
+  // ---------------------------------------------
+  // Breadcrumb
+  // ---------------------------------------------
+
+  &__breadcrumb {
+    display: flex;
+    align-items: center;
+    gap: $space-2;
+
+    width: 100%;
+    max-width: 100%;
+
+    min-width: 0;
+
+    flex: 0 0 auto;
+
+    margin-bottom: $space-3;
+
+    overflow: hidden;
+
+    color: $color-text-muted;
+
+    font-size: $font-size-xs;
+    line-height: $line-height-base;
+
+    span[aria-current='page'] {
+      color: $color-text-secondary;
+      font-weight: $font-weight-medium;
+    }
+  }
+
+  // ---------------------------------------------
+  // Header
+  // ---------------------------------------------
+
+  &__header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: $space-6;
+
+    width: 100%;
+    max-width: 100%;
+
+    min-width: 0;
+
+    flex: 0 0 auto;
+
+    margin-bottom: $space-6;
+
+    overflow: hidden;
+  }
+
+  &__header-content {
+    flex: 1 1 auto;
+
+    min-width: 0;
+    max-width: 100%;
+  }
+
+  &__title {
+    margin: 0;
+
+    color: $color-text-primary;
+
+    font-size: $font-size-2xl;
+    font-weight: $font-weight-semibold;
+    line-height: $line-height-tight;
+  }
+
+  &__description {
+    max-width: 640px;
+
+    margin: $space-2 0 0;
+
+    color: $color-text-secondary;
+
+    font-size: $font-size-sm;
+    line-height: $line-height-base;
+  }
+
+  &__create-button {
+    min-height: 40px;
+
+    padding-inline: $space-5;
+
+    flex: 0 0 auto;
+
+    border-radius: $radius-md;
+
+    font-weight: $font-weight-medium;
+  }
+
+  // ---------------------------------------------
+  // Content
+  // ---------------------------------------------
+
+  &__content {
+    display: flex;
+    flex-direction: column;
+
+    /*
+     * CRÍTICO:
+     * no usar width intrínseco.
+     */
+    width: auto;
+    max-width: 100%;
+
+    min-width: 0;
+
+    flex: 0 0 auto;
+
+    padding:
+            $space-4
+            $space-4
+            0;
+
+    overflow: hidden;
+
+    background: $color-surface;
+
+    border: 1px solid $color-border;
+    border-radius: $radius-lg;
+
+    box-shadow: $shadow-sm;
+  }
+
+  // ---------------------------------------------
+  // Status summary
+  // ---------------------------------------------
+
+  &__status-summary {
+    display: grid;
+
+    grid-template-columns:
+      repeat(5, minmax(0, 1fr));
+
+    width: 100%;
+    max-width: 100%;
+
+    min-width: 0;
+
+    margin-bottom: $space-4;
+
+    overflow: hidden;
+
+    background: $color-surface-secondary;
+
+    border: 1px solid $color-border;
+    border-radius: $radius-md;
+  }
+
+  &__status-summary-item {
+    appearance: none;
+
+    display: flex;
+    align-items: center;
+    gap: $space-2;
+
+    width: 100%;
+
+    min-width: 0;
+    min-height: 48px;
+
+    padding-inline: $space-3;
+
+    overflow: hidden;
+
+    background: transparent;
+
+    border: 0;
+    border-right: 1px solid $color-border;
+
+    color: inherit;
+
+    cursor: pointer;
+
+    &:last-child {
+      border-right: 0;
+    }
+
+    &:hover {
+      background: $color-surface-hover;
+    }
+
+    &--active {
+      background: $color-surface;
+    }
+  }
+
+  &__status-summary-label {
+    min-width: 0;
+
+    overflow: hidden;
+
+    color: $color-text-secondary;
+
+    font-size: $font-size-xs;
+
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  }
+
+  &__status-summary-value {
+    margin-left: auto;
+
+    flex: 0 0 auto;
+
+    color: $color-text-primary;
+
+    font-size: $font-size-sm;
+    font-weight: $font-weight-semibold;
+
+    font-variant-numeric: tabular-nums;
+  }
+
+  &__status-summary-dot {
+    width: 7px;
+    height: 7px;
+
+    flex: 0 0 7px;
+
+    border-radius: 50%;
+
+    &--available {
+      background: $color-success;
+    }
+
+    &--occupied {
+      background: $color-danger;
+    }
+
+    &--maintenance {
+      background: $color-warning;
+    }
+
+    &--inactive {
+      background: $color-neutral;
+    }
+  }
+
+  // ---------------------------------------------
+  // Toolbar
+  // ---------------------------------------------
+
+  &__toolbar {
+    display: flex;
+    align-items: center;
+    gap: $space-3;
+
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+
+    margin-bottom: $space-5;
+
+    overflow: visible;
+  }
+
+  &__toolbar-end {
+    display: flex;
+    align-items: center;
+    gap: $space-3;
+
+    margin-left: auto;
+
+    flex: 0 0 auto;
+  }
+
+  &__filter-button {
+    display: inline-flex !important;
+    align-items: center;
+    justify-content: center;
+    gap: $space-2;
+
+    height: 40px;
+    min-height: 40px;
+
+    padding: 0 $space-3 !important;
+
+    background: $brand-primary-soft !important;
+
+    border: 1px solid $brand-primary !important;
+    border-radius: $radius-md !important;
+
+    color: $brand-primary !important;
+
+    font-size: $font-size-sm;
+    font-weight: $font-weight-semibold;
+
+    &:hover,
+    &:focus,
+    &:active {
+      background: $brand-primary-soft !important;
+      border-color: $brand-primary !important;
+      color: $brand-primary !important;
+    }
+
+    svg {
+      width: 18px;
+      height: 18px;
+    }
+  }
+
+  &__filter-count {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    min-width: 22px;
+    height: 22px;
+
+    padding-inline: 6px;
+
+    background: $brand-primary;
+
+    border-radius: $radius-pill;
+
+    color: $color-text-inverse;
+
+    font-size: 11px;
+    font-weight: $font-weight-bold;
+
+    line-height: 1;
+  }
+
+  &__more-button {
+    display: inline-flex !important;
+    align-items: center;
+    justify-content: center;
+
+    width: 40px !important;
+    min-width: 40px !important;
+    height: 40px !important;
+
+    padding: 0 !important;
+
+    background: #eef3f9 !important;
+
+    border: 0 !important;
+    border-radius: $radius-md !important;
+
+    color: $color-text-secondary !important;
+
+    &:hover {
+      background: #e4ebf3 !important;
+      color: $brand-primary !important;
+    }
+
+    svg {
+      width: 20px;
+      height: 20px;
+    }
+  }
+
+  &__search {
+    width: 280px;
+    min-width: 280px;
+    max-width: 280px;
+
+    flex: 0 0 280px;
+
+    .rs-input-group {
+      width: 100%;
+      height: 40px;
+      min-height: 40px;
+
+      display: flex;
+      align-items: center;
+
+      overflow: hidden;
+
+      background: #eef2f7 !important;
+
+      border: 1px solid transparent !important;
+      border-radius: 8px !important;
+
+      box-shadow: none !important;
+
+      transition:
+              background-color 150ms ease,
+              border-color 150ms ease,
+              box-shadow 150ms ease;
+
+      &:hover {
+        background: #e9eef5 !important;
+      }
+
+      &:focus-within {
+        background: $color-surface !important;
+
+        border-color: $brand-primary !important;
+
+        box-shadow:
+                0 0 0 3px rgba(30, 64, 105, 0.12) !important;
+      }
+    }
+
+    .rs-input-group-addon {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      width: 40px;
+      min-width: 40px;
+      height: 40px;
+
+      padding: 0 !important;
+
+      background: transparent !important;
+
+      border: 0 !important;
+
+      color: #60758e;
+
+      svg {
+        width: 17px;
+        height: 17px;
+      }
+    }
+
+    .rs-input {
+      width: 100%;
+      height: 40px;
+
+      padding:
+              0
+              14px
+              0
+              0 !important;
+
+      background: transparent !important;
+
+      border: 0 !important;
+      border-radius: 0 !important;
+
+      outline: 0 !important;
+      box-shadow: none !important;
+
+      color: $color-text-primary;
+
+      font-size: 14px;
+      font-weight: $font-weight-regular;
+
+      line-height: 40px;
+
+      &::placeholder {
+        color: #71839a;
+        opacity: 1;
+      }
+
+      &:hover,
+      &:focus,
+      &:active {
+        background: transparent !important;
+
+        border: 0 !important;
+        outline: 0 !important;
+
+        box-shadow: none !important;
+      }
+    }
+  }
+
+  &__toolbar-actions {
+    display: none;
+  }
+
+  &__filter-button {
+    min-height: 40px;
+
+    padding-inline: $space-4;
+
+    flex: 0 0 auto;
+
+    background: $color-surface;
+
+    border: 1px solid $color-border;
+    border-radius: $radius-md;
+
+    color: $color-text-primary;
+  }
+
+  &__more-button {
+    display: grid;
+    place-items: center;
+
+    width: 40px;
+    height: 40px;
+    min-width: 40px;
+
+    padding: 0;
+
+    background: #eef3f9;
+
+    border: 0;
+    border-radius: $radius-md;
+
+    color: $color-text-secondary;
+
+    cursor: pointer;
+
+    &:hover {
+      background: #e4ebf3;
+      color: $brand-primary;
+    }
+  }
+
+  // ---------------------------------------------
+  // Active filters
+  // ---------------------------------------------
+
+  &__active-filters {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: $space-2;
+
+    width: 100%;
+    max-width: 100%;
+
+    min-width: 0;
+
+    margin-bottom: $space-3;
+
+    overflow: hidden;
+  }
+
+  &__active-filters-label {
+    color: $color-text-secondary;
+
+    font-size: $font-size-sm;
+    font-weight: $font-weight-medium;
+  }
+
+  &__filter-tag {
+    max-width: 180px;
+
+    overflow: hidden;
+
+    border: 0;
+    border-radius: $radius-pill;
+
+    background: $brand-primary-soft;
+    color: $brand-primary;
+
+    font-size: $font-size-xs;
+    font-weight: $font-weight-medium;
+
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  &__clear-filters {
+    margin-left: $space-1;
+  }
+
+  // ---------------------------------------------
+  // Table
+  // ---------------------------------------------
+
+  &__table {
+    position: relative;
+
+    width: 100%;
+    max-width: 100%;
+
+    min-width: 0;
+
+    overflow: hidden;
+
+    border: 1px solid $color-border;
+    border-radius: $radius-md;
+  }
+
+  &__table .inventory-table {
+    width: 100%;
+    max-width: 100%;
+
+    min-width: 0;
+  }
+
+  &__table .rs-table {
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+
+  // ---------------------------------------------
+  // Footer
+  // ---------------------------------------------
+
+  &__footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: $space-4;
+
+    width: 100%;
+    max-width: 100%;
+
+    min-width: 0;
+    min-height: 64px;
+
+    overflow: hidden;
+  }
+
+  &__pagination-info {
+    min-width: 0;
+
+    overflow: hidden;
+
+    color: $color-text-secondary;
+
+    font-size: $font-size-sm;
+
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  }
+
+  &__pagination {
+    flex: 0 0 auto;
+
+    min-width: 0;
+
+    .rs-pagination-btn-active {
+      background: $brand-primary;
+      color: $color-text-inverse;
+    }
+  }
+
+  // ---------------------------------------------
+  // Filters panel
+  // ---------------------------------------------
+
+  &__filters-panel {
+    /*
+     * El panel ocupa EXCLUSIVAMENTE
+     * su columna del grid.
+     */
+    width: 100%;
+    max-width: 100%;
+
+    min-width: 0;
+    min-height: 0;
+
+    height: 100%;
+
+    box-sizing: border-box;
+
+    padding: $space-5;
+
+    overflow-x: hidden;
+    overflow-y: auto;
+
+    background: $color-surface;
+
+    border-left: 1px solid $color-border;
+  }
+
+  // ---------------------------------------------
+  // Tablet
+  // ---------------------------------------------
+
+  @media (max-width: $tablet-landscape) {
+    &__layout {
+      grid-template-columns: minmax(0, 1fr);
+    }
+
+    &__main {
+      padding: $space-5;
+    }
+
+    &__filters-panel {
+      display: none;
+    }
+
+    &__toolbar-actions {
+      display: flex;
+      align-items: center;
+
+      margin-left: auto;
+    }
+  }
+
+  // ---------------------------------------------
+  // Mobile
+  // ---------------------------------------------
+
+  @media (max-width: $tablet) {
+    &__main {
+      padding:
+              $space-4
+              $space-3;
+    }
+
+    &__header {
+      flex-direction: column;
+      gap: $space-4;
+
+      overflow: visible;
+    }
+
+    &__create-button {
+      width: 100%;
+    }
+
+    &__content {
+      padding:
+              $space-3
+              $space-3
+              0;
+    }
+
+    &__status-summary {
+      grid-template-columns:
+        repeat(2, minmax(0, 1fr));
+    }
+
+    &__status-summary-item {
+      border-right: 0;
+      border-bottom: 1px solid $color-border;
+    }
+
+    &__toolbar {
+      flex-wrap: wrap;
+
+      overflow: visible;
+    }
+
+    &__search {
+      width: 310px;
+      min-width: 0;
+      flex: 0 1 310px;
+
+      .rs-input-group {
+        height: 40px;
+        min-height: 40px;
+
+        overflow: hidden;
+
+        background: #eef3f9;
+
+        border: 1px solid transparent;
+        border-radius: $radius-md;
+
+        box-shadow: none;
+
+        &:hover {
+          background: #e9eff6;
+          border-color: transparent;
+        }
+
+        &:focus-within {
+          background: #eef3f9;
+          border-color: transparent;
+
+          box-shadow: none;
+        }
+      }
+
+      .rs-input {
+        height: 38px;
+
+        padding-left: 0;
+
+        background: transparent !important;
+
+        border: 0 !important;
+        outline: 0 !important;
+
+        color: $color-text-primary;
+
+        font-size: $font-size-sm;
+
+        box-shadow: none !important;
+
+        &::placeholder {
+          color: $color-text-secondary;
+          opacity: 1;
+        }
+
+        &:focus {
+          border: 0 !important;
+          outline: 0 !important;
+          box-shadow: none !important;
+        }
+      }
+
+      .rs-input-group-addon {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        width: 40px;
+
+        padding: 0;
+
+        background: transparent;
+
+        color: $color-text-secondary;
+      }
+    }
+
+    .rs-input {
+      height: 38px;
+
+      padding-left: 0;
+
+      background: transparent !important;
+
+      border: 0 !important;
+      outline: 0 !important;
+
+      color: $color-text-primary;
+
+      font-size: $font-size-sm;
+
+      box-shadow: none !important;
+
+      &::placeholder {
+        color: $color-text-secondary;
+        opacity: 1;
+      }
+
+      &:focus {
+        border: 0 !important;
+        outline: 0 !important;
+        box-shadow: none !important;
+      }
+    }
+
+    .rs-input-group-addon {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      width: 40px;
+
+      padding: 0;
+
+      background: transparent;
+
+      color: $color-text-secondary;
+    }
+
+    &__toolbar-actions {
+      width: 100%;
+
+      margin-left: 0;
+    }
+
+    &__filter-button {
+      width: 100%;
+    }
+
+    &__footer {
+      align-items: flex-start;
+      flex-direction: column;
+
+      padding-block: $space-3;
+
+      overflow: visible;
+    }
+
+    &__pagination {
+      width: 100%;
+
+      overflow-x: auto;
+    }
+  }
+}
