@@ -37,14 +37,12 @@ const adTypeOptions = [
 ];
 
 export default function CommercialStep({
-                                           value,
-                                           onChange,
-                                           onPrevious,
-                                           onNext,
-                                       }: CommercialStepProps) {
-    const updateField = <
-        K extends keyof SiteCommercialForm,
-    >(
+   value,
+   onChange,
+   onPrevious,
+   onNext,
+}: CommercialStepProps) {
+    const updateField = <K extends keyof SiteCommercialForm, >(
         field: K,
         fieldValue: SiteCommercialForm[K],
     ) => {
@@ -54,8 +52,7 @@ export default function CommercialStep({
         });
     };
 
-    const isDigital =
-        value.adType === 'digital';
+    const isDigital = value.adType === 'digital';
 
     return (
         <div className="commercial-step">

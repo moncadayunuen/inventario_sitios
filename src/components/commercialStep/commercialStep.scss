@@ -101,18 +101,14 @@
 
   &__measurement {
     position: relative;
-
     .rs-input-number {
       padding-right: 38px;
     }
-
     > span {
       position: absolute;
       top: 50%;
       right: 38px;
-
       z-index: 2;
-
       transform: translateY(-50%);
 
       color: $color-text-muted;
@@ -126,13 +122,9 @@
   &__info {
     margin-top: $space-5;
     padding: $space-3 $space-4;
-
     background: $brand-primary-soft;
-
     border-radius: $radius-md;
-
     color: $brand-primary;
-
     font-size: $font-size-xs;
     line-height: $line-height-base;
   }
@@ -142,12 +134,9 @@
     align-items: center;
     justify-content: space-between;
     gap: $space-4;
-
     margin-top: $space-6;
     padding-top: $space-5;
-
     border-top: 1px solid $color-border;
-
     .rs-btn {
       min-width: 108px;
       min-height: 42px;
@@ -160,7 +149,6 @@
 
   @media (max-width: $tablet) {
     padding: $space-4;
-
     &__fields {
       grid-template-columns: 1fr;
     }
