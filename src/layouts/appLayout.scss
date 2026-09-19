@@ -147,11 +147,8 @@
 
     &--active {
       background: $brand-primary-soft;
-
       color: $brand-primary;
-
       font-weight: $font-weight-medium;
-
       &:hover {
         background: $brand-primary-soft;
         color: $brand-primary;
@@ -182,9 +179,7 @@
 
     width: 28px;
     height: 28px;
-
     margin-bottom: $space-3;
-
     background: $color-surface;
 
     border: 1px solid $color-border;
@@ -424,7 +419,7 @@
   &__main {
     min-width: 0;
     min-height: 0;
-    overflow: hidden;
+    overflow: auto;
     background: $color-background;
   }
 

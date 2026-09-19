@@ -324,15 +324,17 @@ export default function InventoryPage() {
                     />
 
                     <div className="inventory__content">
-                        <InventorySummary
-                            total={statusSummary.total}
-                            available={statusSummary.available}
-                            occupied={statusSummary.occupied}
-                            maintenance={statusSummary.maintenance}
-                            inactive={statusSummary.inactive}
-                            activeStatus={activeStatusTab}
-                            onChange={handleStatusTabChange}
-                        />
+                        <div className="inventory__status-summary-scroll">
+                            <InventorySummary
+                                total={statusSummary.total}
+                                available={statusSummary.available}
+                                occupied={statusSummary.occupied}
+                                maintenance={statusSummary.maintenance}
+                                inactive={statusSummary.inactive}
+                                activeStatus={activeStatusTab}
+                                onChange={handleStatusTabChange}
+                            />
+                        </div>
 
                         <div className="inventory__toolbar">
                             <div className="inventory__search">

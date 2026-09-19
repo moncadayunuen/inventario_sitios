@@ -62,9 +62,7 @@ export default function InventorySummary({
             <button
                 type="button"
                 role="tab"
-                aria-selected={
-                    activeStatus === 'available'
-                }
+                aria-selected={activeStatus === 'available'}
                 className={[
                     'inventory-summary__item',
                     activeStatus === 'available' ? 'inventory-summary__item--active' : '',

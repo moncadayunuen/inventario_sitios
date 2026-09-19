@@ -103,10 +103,8 @@
     flex: 0 0 auto;
 
     margin-bottom: $space-6;
-
     overflow: hidden;
   }
-
   &__header-content {
     flex: 1 1 auto;
     min-width: 0;
@@ -154,14 +152,21 @@
   // ---------------------------------------------
   // Status summary
   // ---------------------------------------------
-  &__status-summary {
-    display: grid;
-    grid-template-columns:repeat(5, minmax(0, 1fr));
+  &__status-summary-scroll {
     width: 100%;
     max-width: 100%;
     min-width: 0;
     margin-bottom: $space-4;
-    overflow: hidden;
+    overflow-x: auto;
+    overflow-y: hidden;
+  }
+
+  &__status-summary {
+    display: grid;
+    grid-template-columns: repeat(5, minmax(160px, 1fr));
+    width: max-content;
+    min-width: 100%;
+    margin-bottom: 0;
     background: $color-surface-secondary;
     border: 1px solid $color-border;
     border-radius: $radius-md;
@@ -650,7 +655,7 @@
     }
 
     &__status-summary {
-      grid-template-columns:repeat(2, minmax(0, 1fr));
+      grid-template-columns: repeat(5, minmax(150px, 1fr));
     }
 
     &__status-summary-item {
